@@ -5,7 +5,24 @@ import subprocess
 from datetime import datetime
 from pathlib import Path
 
-from animations import SimpleAnimation
+try:
+    from animations import SimpleAnimation
+except ImportError:
+    import time
+    import warnings
+
+    _t = "Missing animations module. Please install it with: "
+    _t += "pip install git+https://github.com/AndreGraca98/console-animations.git . "
+    _t += "Running without loading animations..."
+    warnings.warn(_t)
+
+    class SimpleAnimation:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def run(self, *args, **kwargs):
+            return print(*args, kwargs, end="\r") or time.sleep(5)
+
 
 try:
     from cron_converter import Cron
