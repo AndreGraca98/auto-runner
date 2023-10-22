@@ -16,7 +16,6 @@ except ImportError as e:
 
 CRONTAB = "*/10 * * * *"  # Every 10min
 LOGFILE = str(Path.cwd() / ".auto-runner.log")
-COMMAND = "pipenv run python -m pytest -qqq"
 EXAMPLE = """
 Example:
     auto-runner --tab '*/15 * * * *' --log my-log-file.log
@@ -29,9 +28,7 @@ Cron time examples:
 
 def get_parser():
     parser = argparse.ArgumentParser(description="Auto runner")
-    parser.add_argument(
-        "-c", "--cmd", type=str, dest="cmd", help="Command to run", default=COMMAND
-    )
+    parser.add_argument("cmd", type=str, help="Command to run")
     parser.add_argument(
         "-t",
         "--tab",
@@ -87,9 +84,11 @@ def main():
         print(f"Running: {args.cmd!r}".ljust(120), end="\r")
         out = subprocess.run(args.cmd, shell=True, capture_output=args.quiet)
 
-        if args.logfile:
-            with open(args.logfile, "+a") as logfile:
+        if args.logfile is not None:
+            with open(args.logfile, "a+") as logfile:
                 logfile.write(f"{datetime.now()}: {args.cmd}\n")
+                if out.stderr is not None:
+                    logfile.write(out.stderr.decode())
                 if out.stdout is not None:
                     logfile.write(out.stdout.decode())
 
