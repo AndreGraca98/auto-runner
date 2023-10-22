@@ -34,7 +34,8 @@ setup(
     platforms="Python",
     packages=find_packages(),
     install_requires=[
-        "animations @ git+https://github.com/AndreGraca98/console-animations.git"
+        "animations @ git+https://github.com/AndreGraca98/console-animations.git",
+        "cron-converter",
     ],
     cmdclass={
         "install": PostInstallCommand,
