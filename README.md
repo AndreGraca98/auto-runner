@@ -1,12 +1,14 @@
 # Auto Runner
 
+![badge](https://img.shields.io/github/v/tag/AndreGraca98/auto-runner?logo=python&logoColor=yellow&label=version)
+
 The `auto-runner` script allows you to run a command on a schedule using cron notation. This is especially useful if you have a recurring task that you need to run without manually triggering it.
 
 ## Requirements
 
 - Python 3 (tested with Python 3.11)
-- cron-converter module. (`pip install cron-converter`)
-- animations module. (`pip install git+https://github.com/AndreGraca98/console-animations.git`)
+- cron-converter package `pip install cron-converter`
+- console animations package `pip install git+https://github.com/AndreGraca98/console-animations.git` ([Check this repo](https://github.com/AndreGraca98/console-animations))
 
 ## Installation
 
